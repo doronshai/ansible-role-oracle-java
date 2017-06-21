@@ -17,15 +17,13 @@
 
 - include: set-role-variables.yml
 
-
+- name: install python2 for Ansible to work
+  yum: name=python2 state=present
+  when: ansible_pkg_mgr == "yum"  
 
 - name: install libselinux-python binary for Ansible to work
   yum: name=libselinux-python state=present
   when: ansible_pkg_mgr == "yum"
-
-- name: install python2 for Ansible to work
-  yum: name=python2 state=present
-  when: ansible_pkg_mgr == "yum"  
 
 - name: copy scripts to server
   copy: src="../files/check-java-version.sh"  dest="{{ java_download_path }}/"  mode="a+x"
